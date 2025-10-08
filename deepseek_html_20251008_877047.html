@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Министерство внутренних дел РФ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <i class="fas fa-shield-alt"></i> МВД РФ
+                    </div>
+                </div>
+                <div class="current-date">04 августа 2025 года</div>
+                <div class="game-day-control">
+                    <button id="decrease-day"><i class="fas fa-minus"></i></button>
+                    <input type="number" id="current-game-day" value="100" min="0" max="10000">
+                    <button id="increase-day"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="password-prompt" id="password-prompt">
+            <i class="fas fa-lock"></i>
+            <h2>Доступ к служебному порталу</h2>
+            <p>Для доступа к служебному порталу введите пароль:</p>
+            <div class="form-group password-input">
+                <input type="password" id="service-password" placeholder="Пароль">
+            </div>
+            <button class="btn" id="login-btn"><i class="fas fa-sign-in-alt"></i> Войти</button>
+            <div id="password-error" class="alert alert-error hidden">
+                <i class="fas fa-exclamation-circle"></i> Неверный пароль!
+            </div>
+        </div>
+        
+        <div id="service-content" class="hidden">
+            <div class="main-content">
+                <div class="sidebar">
+                    <div class="nav-item active" data-section="actions">
+                        <i class="fas fa-clipboard-list"></i> Реестр действий
+                    </div>
+                    <div class="nav-item" data-section="licenses">
+                        <i class="fas fa-id-card"></i> Водительские удостоверения
+                    </div>
+                    <div class="nav-item" data-section="accidents">
+                        <i class="fas fa-car-crash"></i> Отчеты о ДТП
+                    </div>
+                    <div class="nav-item" data-section="arrests">
+                        <i class="fas fa-handcuffs"></i> Отчеты об арестах
+                    </div>
+                    <div class="nav-item" data-section="sync">
+                        <i class="fas fa-cloud"></i> Синхронизация
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <!-- Статистика -->
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-actions">0</div>
+                            <div class="stat-label">Всего действий</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-licenses">0</div>
+                            <div class="stat-label">ВУ в базе</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-accidents">0</div>
+                            <div class="stat-label">Отчетов о ДТП</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-arrests">0</div>
+                            <div class="stat-label">Отчетов об арестах</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Реестр действий -->
+                    <div class="section active" id="actions-section">
+                        <!-- Содержимое раздела действий -->
+                    </div>
+                    
+                    <!-- Водительские удостоверения -->
+                    <div class="section hidden" id="licenses-section">
+                        <!-- Содержимое раздела ВУ -->
+                    </div>
+                    
+                    <!-- Отчеты о ДТП -->
+                    <div class="section hidden" id="accidents-section">
+                        <!-- Содержимое раздела ДТП -->
+                    </div>
+                    
+                    <!-- Отчеты об арестах -->
+                    <div class="section hidden" id="arrests-section">
+                        <!-- Содержимое раздела арестов -->
+                    </div>
+                    
+                    <!-- Синхронизация -->
+                    <div class="section hidden" id="sync-section">
+                        <div class="card-header">
+                            <h2 class="section-title"><i class="fas fa-cloud"></i> Синхронизация данных</h2>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="section-title"><i class="fas fa-database"></i> Управление данными</h3>
+                            <p>Для синхронизации данных между устройствами используйте следующие функции:</p>
+                            
+                            <div class="form-section">
+                                <div class="flex">
+                                    <button class="btn" id="export-data-btn">
+                                        <i class="fas fa-download"></i> Экспорт данных
+                                    </button>
+                                    <button class="btn" id="import-data-btn">
+                                        <i class="fas fa-upload"></i> Импорт данных
+                                    </button>
+                                    <input type="file" id="import-file" accept=".json" class="hidden">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="data-backup">Резервная копия данных</label>
+                                    <textarea id="data-backup" rows="6" placeholder="Здесь будет JSON с данными для резервного копирования"></textarea>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button class="btn btn-success" id="save-backup-btn">
+                                        <i class="fas fa-save"></i> Сохранить резервную копию
+                                    </button>
+                                    <button class="btn" id="load-backup-btn">
+                                        <i class="fas fa-file-import"></i> Загрузить из резервной копии
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h3 class="section-title"><i class="fas fa-trash"></i> Очистка данных</h3>
+                                <p>Внимание! Эти действия невозможно отменить.</p>
+                                <div class="form-actions">
+                                    <button class="btn btn-danger" id="clear-all-data-btn">
+                                        <i class="fas fa-broom"></i> Очистить все данные
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
